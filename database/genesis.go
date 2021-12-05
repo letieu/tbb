@@ -1,13 +1,22 @@
 package database
 
 import (
-	"io/ioutil"
 	"encoding/json"
+	"io/ioutil"
 )
 
 type genesis struct {
 	Balances map[Account]uint `json:"balances"`
 }
+
+var genesisJson = `
+{
+  "genesis_time": "2019-03-18T00:00:00.000000000Z",
+  "chain_id": "the-blockchain-bar-ledger",
+  "balances": {
+    "andrej": 1000000
+  }
+}`
 
 func loadGenesis(path string) (genesis, error) {
 	content, err := ioutil.ReadFile(path)
@@ -23,3 +32,8 @@ func loadGenesis(path string) (genesis, error) {
 
 	return loadedGenesis, nil
 }
+
+func writeGenesisToDisk(path string) error {
+	return ioutil.WriteFile(path, []byte(genesisJson), 0644)
+}
+

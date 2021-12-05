@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/web3coach/the-blockchain-bar/database"
+	"github.com/letieu/the-blockchain-bar/database"
 	"os"
 	"time"
 )
 
 func main() {
-	state, err := database.NewStateFromDisk()
+	cwd, _ := os.Getwd()
+	state, err := database.NewStateFromDisk(cwd)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
